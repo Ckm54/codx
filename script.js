@@ -2,7 +2,7 @@ import bot from './assets/bot.svg';
 import user from './assets/user.svg';
 
 const form = document.querySelector('form');
-const container = document.querySelector('#chat_container');
+const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
 
@@ -53,3 +53,38 @@ function chatStripe(isAi, value, uniqueId) {
     `
   )
 }
+
+const handleSubmit = async(e) => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+
+  // user's chat stripe
+  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+
+  form.reset();
+
+  // bot's chat stripe
+  const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+  // scrolldown as user types
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // fetch newly created div
+  const messageDiv = document.getElementById(uniqueId);
+
+  // turn on the loader
+  loader(messageDiv);
+}
+
+// handle form submission
+form.addEventListener('submit', handleSubmit);
+
+// submit form with press of enter key
+form.addEventListener('keyup', (e) => {
+  if(e.keyCode === 13) {
+    handleSubmit(e);
+  }
+})
+
