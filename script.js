@@ -29,3 +29,12 @@ function typeText(element, text) {
     }
   }, 20);
 }
+
+// generate a unique id for every message to enable mapping over them
+function generateUniqueId() {
+  const timeStamp = Date.now();
+  const randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
+
+  return `id-${timeStamp}-${hexadecimalString}`;
+}
