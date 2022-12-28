@@ -49,3 +49,6 @@ app.post('/', async(req, res) => {
     }
 });
 
+// ensure server is always running
+app.listen(5000, () => console.log('Server is running on port http://localhost:5000'));
+
