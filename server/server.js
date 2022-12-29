@@ -9,6 +9,8 @@ const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+console.log(process.env.OPENAI_API_KEY);
+
 // create instance of OpenAI
 const openai = new OpenAIApi(configuration);
 
@@ -45,7 +47,7 @@ app.post('/', async(req, res) => {
         })
     } catch (error) {
         console.log(error);
-        res.status(500).send(error);
+        res.status(500).send({ error });
     }
 });
 
